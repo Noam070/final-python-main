@@ -1,6 +1,12 @@
-FROM python
+FROM python:3.7
+
 WORKDIR /src/app
+
 COPY . .
+
+RUN pip install -r requirements.txt
+RUN pip install six==1.16.0
+
 EXPOSE 5000
-RUN pip install  -r requirements.txt
-ENTRYPOINT [ "python", "app.py" ]
+
+ENTRYPOINT ["python", "app.py"]

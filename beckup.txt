@@ -1,0 +1,21 @@
+# Use the official Python 3.7 image as a base
+FROM python:3.7
+
+# Set the working directory inside the container
+WORKDIR /src/app
+
+# Copy only the Pipfile and Pipfile.lock for dependency installation
+COPY Pipfile Pipfile.lock ./
+
+# Install pipenv and dependencies
+RUN pip install --no-cache-dir pipenv && \
+    pipenv install --system --deploy
+
+# Copy the rest of the application code to the container
+COPY . .
+
+# Expose the Flask application port
+EXPOSE 5000
+
+# Run the Flask application
+ENTRYPOINT ["python", "app.py"]
